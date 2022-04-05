@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>2D Loop</title>
+  </head>
+  <body>
+    <div class="links">
+      <a href="index.html">Back</a
+      ><a
+        href="https://www.w3schools.com/graphics/canvas_intro.asp"
+        target="_blank"
+        >W3Schools</a
+      >
+    </div>
+    <canvas></canvas>
+    <script src="js/funfunfunctions.js"></script>
+    <script>
+      var canvas = document.querySelector("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+
+      // Drawing a rectangle on the canvas.
+      ctx.fillStyle = "hsl(296, 54%, 52%)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      function play(fps) {
+        setInterval(() => {
+          // code to run each frame
+          // paintSplatter();
+        }, 1000 / fps);
+      }
+      traveling_square();
+      function traveling_square() {
+        for (let x = 0; x < 10; x++) {
+          for (let y = 0; y < 10; y++) {
+            drawLine({
+              x1: (innerWidth / 10) * x,
+              y1: (innerHeight / 10) * y,
+              x2: innerWidth / 10,
+              y2: innerHeight / 10,
+              color: "red",
+            });
+          }
+        }
+      }
+      //   ctx.strokeStyle = "hsl(296, 54%, 0%)";
+      //   ctx.moveTo(canvas.width / 2, canvas.height / 2);
+      //   ctx.lineTo(canvas.width / 2, 200);
+      //   ctx.stroke();
+    </script>
+  </body>
+</html>
