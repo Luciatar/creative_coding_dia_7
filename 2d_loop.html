@@ -11,11 +11,7 @@
   <body>
     <div class="links">
       <a href="index.html">Back</a
-      ><a
-        href="https://www.w3schools.com/graphics/canvas_intro.asp"
-        target="_blank"
-        >W3Schools</a
-      >
+      ><a href="https://www.w3schools.com/graphics/canvas_intro.asp" target="_blank">W3Schools</a>
     </div>
     <canvas></canvas>
     <script src="js/funfunfunctions.js"></script>
@@ -26,26 +22,44 @@
       canvas.height = innerHeight;
 
       // Drawing a rectangle on the canvas.
-      ctx.fillStyle = "hsl(296, 54%, 52%)";
+      ctx.fillStyle = randomColorHSL({ lightness: 60, saturation: 80 });
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      function play(fps) {
+      play();
+      traveling_square();
+      function play() {
         setInterval(() => {
           // code to run each frame
-          // paintSplatter();
-        }, 1000 / fps);
+          ctx.fillStyle = randomColorHSL({ lightness: 60, saturation: 80 });
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          traveling_square();
+        }, 6000);
       }
-      traveling_square();
+
       function traveling_square() {
-        for (let x = 0; x < 10; x++) {
-          for (let y = 0; y < 10; y++) {
-            drawLine({
-              x1: (innerWidth / 10) * x,
-              y1: (innerHeight / 10) * y,
-              x2: innerWidth / 10,
-              y2: innerHeight / 10,
-              color: "red",
-            });
+        let cellWidth = Math.ceil(innerHeight < innerWidth ? innerWidth / 8 : innerHeight / 8);
+
+        let counter = 0;
+        for (let x = 1; x <= 7; x++) {
+          for (let y = 1; y <= 7; y++) {
+            counter++;
+            setTimeout(() => {
+              drawCircle({
+                cx: x * cellWidth,
+                cy: y * cellWidth,
+
+                fill: randomColorHSL({ lightness: 60, saturation: 80 }),
+                stroke: "white",
+                r: cellWidth / 3,
+              });
+              ctx.font = "12px Arial";
+              ctx.fillStyle = "black";
+              ctx.textAlign = "center";
+              //ctx.fillText("x: " + x + "| y: " + y, x * cellWidth, y * cellWidth);
+              ctx.fillText("x: " + x, x * cellWidth, y * cellWidth - cellWidth / 12);
+              ctx.fillText("y: " + y, x * cellWidth, y * cellWidth + cellWidth / 12);
+
+              console.log("counter: " + counter + "  x: " + x * cellWidth + "  y: " + y * cellWidth);
+            }, 80 * counter);
           }
         }
       }

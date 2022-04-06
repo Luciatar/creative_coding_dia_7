@@ -1,4 +1,3 @@
-onload = windowResizeManager();
 function windowResizeManager() {
   window.addEventListener("resize", function () {
     canvas.width = innerWidth;
@@ -20,14 +19,7 @@ function paintSplatter() {
   }
 }
 
-function drawLine({
-  x1: x1,
-  y1: y1,
-  x2: x2,
-  y2: y2,
-  color: color,
-  lineWidth: lineWidth,
-}) {
+function drawLine({ x1: x1, y1: y1, x2: x2, y2: y2, color: color, lineWidth: lineWidth }) {
   x1 = x1 || 100;
   y1 = y1 || 100;
   x2 = x2 || 200;
@@ -57,11 +49,7 @@ function drawCircle({ cx: cx, cy: cy, r: r, stroke: stroke, fill: fill }) {
   ctx.stroke();
 }
 
-function randomColorHSL({
-  hue: hue,
-  saturation: saturation,
-  lightness: lightness,
-}) {
+function randomColorHSL({ hue: hue, saturation: saturation, lightness: lightness }) {
   hue = hue || Math.floor(Math.random() * 360);
   saturation = saturation || Math.floor(Math.random() * 100);
   lightness = lightness || Math.floor(Math.random() * 100);
