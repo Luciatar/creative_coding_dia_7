@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Line Art</title>
+  </head>
+  <body>
+    <div class="links">
+      <a href="index.html">Back</a
+      ><a
+        href="https://www.w3schools.com/graphics/canvas_intro.asp"
+        target="_blank"
+        >W3Schools</a
+      >
+    </div>
+    <canvas></canvas>
+    <script>
+      function windowResizeManager() {
+        window.addEventListener("resize", function () {
+          canvas.width = innerWidth;
+          canvas.height = innerHeight;
+          //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+          console.log("resize");
+        });
+      }
+      function paintSplatter() {
+        ctx.fillStyle = "hsl(296, 54%, 52%, 0.3)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < 100; i++) {
+          drawCircle({
+            cx: randomG(15) * innerWidth,
+            cy: randomG(15) * innerHeight,
+            r: randomG(3) * 15,
+            fill: randomColorHSL({}),
+          });
+        }
+      }
+
+      function drawLine({
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2,
+        color: color,
+        lineWidth: lineWidth,
+      }) {
+        x1 = x1 || 100;
+        y1 = y1 || 100;
+        x2 = x2 || 200;
+        y2 = y2 || 200;
+        color = color || "black";
+        lineWidth = lineWidth || 10;
+
+        ctx.strokeStyle = color;
+        ctx.moveTo(x1, x2);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.closePath();
+        console.log("drawingLine");
+      }
+
+      function drawCircle({
+        cx: cx,
+        cy: cy,
+        r: r,
+        stroke: stroke,
+        fill: fill,
+      }) {
+        cx = cx || innerWidth / 2;
+        cy = cy || innerHeight / 2;
+        r = r || innerWidth / 5;
+        stroke = stroke || "black";
+        fill = fill || "white";
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0 * Math.PI, 2 * Math.PI);
+        ctx.strokeStyle = stroke;
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      function randomColorHSL({
+        hue: hue,
+        saturation: saturation,
+        lightness: lightness,
+      }) {
+        hue = hue || Math.floor(Math.random() * 360);
+        saturation = saturation || Math.floor(Math.random() * 100);
+        lightness = lightness || Math.floor(Math.random() * 100);
+        let hsl = "hsl(" + hue + "," + saturation + "%," + lightness + "%)";
+        return hsl;
+      }
+
+      function randomG(v) {
+        var r = 0;
+        for (var i = v; i > 0; i--) {
+          r += Math.random();
+        }
+        return r / v;
+      }
+    </script>
+    <!-- <script src="js/funfunfunctions.js"></script> -->
+    <script>
+      var canvas = document.querySelector("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+
+      // Drawing a rectangle on the canvas.
+      ctx.fillStyle = randomColorHSL({ lightness: 60, saturation: 80 });
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      let w = canvas.width;
+      let h = canvas.height;
+      play(3);
+      function play(fps) {
+        setInterval(() => {
+          // code to run each frame
+          // "erase" canvas
+
+          ctx.fillStyle = "white";
+          ctx.fillRect(0, 0, w, h);
+          lineArt();
+        }, 1000 / fps);
+      }
+
+      // Drawing a grid of circles.
+    </script>
+  </body>
+</html>

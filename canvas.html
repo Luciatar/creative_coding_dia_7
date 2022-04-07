@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Canvas</title>
   </head>
   <body>
@@ -24,16 +25,28 @@
       var ctx = canvas.getContext("2d");
       canvas.width = innerWidth;
       canvas.height = innerHeight;
-
+      let bgColor = randomColorHSL({ alpha: 0.1 });
       // Drawing a rectangle on the canvas.
-      ctx.fillStyle = "hsl(296, 54%, 52%)";
+
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      play(25);
+      play(20);
       function play(fps) {
         setInterval(() => {
+          ctx.fillStyle = bgColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           // code to run each frame
           paintSplatter();
         }, 1000 / fps);
+      }
+      function paintSplatter() {
+        for (let i = 0; i < 100; i++) {
+          drawCircle({
+            cx: randomG(10) * innerWidth,
+            cy: randomG(10) * innerHeight,
+            r: randomG(5) * 15,
+            fill: randomColorHSL({}),
+          });
+        }
       }
       //   ctx.strokeStyle = "hsl(296, 54%, 0%)";
       //   ctx.moveTo(canvas.width / 2, canvas.height / 2);
