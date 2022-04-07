@@ -20,23 +20,59 @@
       ctx.fillStyle = randomColorHSL({ lightness: 60, saturation: 80 });
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      drawCircle({ r: 10 });
-
       class walker {
         constructor(x, y) {
-          this.x = x;
-          this.y = y;
+          this.cx = x;
+          this.cy = y;
+
           this.r = 10;
-          this.color = randomColorHSL({ lightness: 60, saturation: 80 });
+          this.fill = randomColorHSL({ lightness: 60, saturation: 80 });
         }
       }
       const walkers = [];
+      play(30);
+      function generateWalkers(amount) {
+        for (let i = 0; i < amount; i++) {
+          walkers.push(
+            new walker(randomG(2) * innerWidth, randomG(2) * innerHeight)
+          );
+          console.log(walkers[i]);
+        }
+      }
 
-      for (let i = 0; i < 100; i++) {
-        walkers.push(
-          new walker(randomG(2) * innerWidth, randomG(2) * innerHeight)
-        );
-        console.log(walkers[i]);
+      function renderWalkers() {
+        for (let i = 0; i < walkers.length; i++) {
+          drawCircle(walkers[i]);
+        }
+      }
+      function moveWalkers(speed, gFactor) {
+        for (let i = 0; i < walkers.length; i++) {
+          if (Math.random() > 0.5) {
+            walkers[i].cx += speed;
+            // console.log(walkers[i].x);
+            if (Math.random() > 0.5) {
+              walkers[i].cy += speed * Math.random();
+            } else {
+              walkers[i].cy -= speed * Math.random();
+            }
+          } else {
+            walkers[i].cx -= speed * Math.random();
+            if (Math.random() > 0.5) {
+              walkers[i].cy += speed * Math.random();
+            } else {
+              walkers[i].cy -= speed * Math.random();
+            }
+            // console.log(walkers[i].x);
+          }
+        }
+      }
+
+      function play(fps) {
+        generateWalkers(100);
+        setInterval(() => {
+          moveWalkers(4, 3);
+          renderWalkers();
+        }, 1000 / fps);
       }
 
       function drawCircle({
