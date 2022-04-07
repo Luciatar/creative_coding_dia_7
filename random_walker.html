@@ -36,7 +36,7 @@
           walkers.push(
             new walker(randomG(2) * innerWidth, randomG(2) * innerHeight)
           );
-          console.log(walkers[i]);
+          // console.log(walkers[i]);
         }
       }
 
@@ -45,24 +45,29 @@
           drawCircle(walkers[i]);
         }
       }
-      function moveWalkers(speed, gFactor) {
+      function moveWalkers(speed) {
         for (let i = 0; i < walkers.length; i++) {
-          if (Math.random() > 0.5) {
-            walkers[i].cx += speed;
-            // console.log(walkers[i].x);
-            if (Math.random() > 0.5) {
-              walkers[i].cy += speed * Math.random();
-            } else {
-              walkers[i].cy -= speed * Math.random();
-            }
-          } else {
-            walkers[i].cx -= speed * Math.random();
-            if (Math.random() > 0.5) {
-              walkers[i].cy += speed * Math.random();
-            } else {
-              walkers[i].cy -= speed * Math.random();
-            }
-            // console.log(walkers[i].x);
+          switch (Math.floor(Math.random() * (3 + 1))) {
+            case 0:
+              walkers[i].cx += speed;
+              walkers[i].cy += speed;
+
+              break;
+            case 1:
+              walkers[i].cx += -speed;
+              walkers[i].cy += -speed;
+              break;
+            case 2:
+              walkers[i].cx += -speed;
+              walkers[i].cy += speed;
+              break;
+            case 3:
+              walkers[i].cx += speed;
+              walkers[i].cy += -speed;
+              break;
+
+            default:
+              break;
           }
         }
       }
@@ -70,7 +75,7 @@
       function play(fps) {
         generateWalkers(100);
         setInterval(() => {
-          moveWalkers(4, 3);
+          moveWalkers(2);
           renderWalkers();
         }, 1000 / fps);
       }
