@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/funfunfunctions.js"></script>
+  </head>
+  <body>
+    <canvas> </canvas>
+    <script>
+      var canvas = document.querySelector("canvas");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+
+      ctx.fillStyle = randomColorHSL({ lightness: 60, saturation: 80 });
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drawCircle({ r: 10 });
+
+      function drawCircle({
+        cx: cx,
+        cy: cy,
+        r: r,
+        stroke: stroke,
+        fill: fill,
+      }) {
+        cx = cx || innerWidth / 2;
+        cy = cy || innerHeight / 2;
+        r = r || innerWidth / 5;
+        stroke = stroke || "black";
+        fill = fill || "white";
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0 * Math.PI, 2 * Math.PI);
+        ctx.strokeStyle = stroke;
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>
